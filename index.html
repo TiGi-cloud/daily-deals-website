@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Deals - Automated Discount Collections for Shopify</title>
+    <meta name="description" content="Set it and forget it. Automate your flash sales, rotate featured products, and boost revenue effortlessly.">
+    <meta name="keywords" content="shopify, discounts, automation, flash sales, daily deals">
+    <meta property="og:title" content="Daily Deals - Automated Discount Collections for Shopify">
+    <meta property="og:description" content="Set it and forget it. Automate your flash sales, rotate featured products, and boost revenue effortlessly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://TiGi-cloud.github.io/daily-deals-website/">
+    <meta property="og:image" content="https://TiGi-cloud.github.io/daily-deals-website/app_icon.png">
+    <link rel="canonical" href="https://TiGi-cloud.github.io/daily-deals-website/">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="app_icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 32px;
+            color: #1a202c;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        p {
+            font-size: 18px;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .feature {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+        
+        .feature-desc {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .info p {
+            font-size: 14px;
+            color: #718096;
+            margin: 8px 0;
+        }
+        
+        .info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .info a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 13px;
+            color: #a0aec0;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 12px 20px;
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 8px;
+            color: #22543d;
+            font-size: 14px;
+        }
+        
+        .status.error {
+            background: #fff5f5;
+            border-color: #fc8181;
+            color: #742a2a;
+        }
+        
+        .status.warning {
+            background: #fffff0;
+            border-color: #f6e05e;
+            color: #744210;
+        }
+        
+        .status.success {
+            background: #f0fff4;
+            border-color: #c6f6d5;
+            color: #22543d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎯</div>
+        
+        <h1><span class="highlight">Daily Deals</span> - Automated Discount Collections</h1>
+        
+        <p>Your professional marketing website is being deployed...</p>
+        
+        <div class="spinner"></div>
+        
+        <div class="status">
+            ⏳ Website is being built and will be available soon
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-title">Automated Scheduling</div>
+                <div class="feature-desc">Set hourly, daily, or weekly intervals for automatic rotation</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Smart Targeting</div>
+                <div class="feature-desc">Select products by collections, types, or tags</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🎲</div>
+                <div class="feature-title">Random Rotation</div>
+                <div class="feature-desc">Keep your storefront fresh with random selection</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Dashboard Analytics</div>
+                <div class="feature-desc">Monitor all your discount schedules from one dashboard</div>
+            </div>
+        </div>
+        
+        <a href="https://shopify.com/apps" class="cta-button">
+            Install on Shopify - Free Trial
+        </a>
+        
+        <div class="info">
+            <p><strong>Free 7-day trial</strong> • No credit card required</p>
+            <p>Works with all Shopify themes • Fully GDPR compliant</p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 Daily Deals. Built for Shopify merchants.</p>
+            <p style="margin-top: 10px;">
+                <a href="https://TiGi-cloud.github.io/daily-deals-legal/privacy.html">Privacy Policy</a> • 
+                <a href="https://TiGi-cloud.github.io/daily-deals-legal/terms.html">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
