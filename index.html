@@ -18,7 +18,7 @@
   <meta property="og:site_name" content="Daily Deals">
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Daily Deals - Automated Discount Collections for Shopify">
   <meta name="twitter:description" content="Automate flash sales and rotating discount collections for your Shopify store.">
   <meta name="twitter:image" content="https://prodify.app/app_icon.png">
@@ -36,7 +36,12 @@
       "price": "7.99",
       "priceCurrency": "USD"
     },
-    "description": "Automate rotating discount collections for Shopify stores. Smart targeting, random rotation, and scheduled updates."
+    "description": "Automate rotating discount collections for Shopify stores. Smart targeting, random rotation, and scheduled updates.",
+    "url": "https://prodify.app",
+    "author": {
+      "@type": "Organization",
+      "name": "Prodify"
+    }
   }
   </script>
 
@@ -45,6 +50,13 @@
     html{scroll-behavior:smooth;scroll-padding-top:80px}
     :root{--primary:#667eea;--secondary:#764ba2;--dark:#1a202c;--gray:#4a5568;--light-gray:#718096;--success:#48bb78;--border:#e2e8f0;--bg-light:#f7fafc}
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;color:var(--gray)}
+
+    /* Skip Link (Accessibility) */
+    .skip-link{position:absolute;top:-40px;left:0;padding:8px 16px;background:var(--primary);color:#fff;z-index:10000;transition:top .2s;font-weight:600;border-radius:0 0 8px 0}
+    .skip-link:focus{top:0}
+
+    /* Focus Styles */
+    a:focus-visible,button:focus-visible,details summary:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
 
     /* Animations */
     .fade-up{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
@@ -192,6 +204,9 @@
 </head>
 <body>
 
+<!-- Skip Navigation (Accessibility) -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- Navigation -->
 <nav role="navigation" aria-label="Main navigation">
   <div class="nav-container">
@@ -199,8 +214,8 @@
       <img src="app_icon.png" alt="Daily Deals logo" width="32" height="32">
       <span>Daily Deals</span>
     </a>
-    <button class="mobile-menu-btn" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('active')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false" onclick="const n=document.querySelector('.nav-links');n.classList.toggle('active');this.setAttribute('aria-expanded',n.classList.contains('active'))">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
     </button>
     <div class="nav-links">
       <a href="#features">Features</a>
@@ -212,13 +227,13 @@
   </div>
 </nav>
 
-<main>
+<main id="main-content">
 
 <!-- Hero -->
 <section class="hero">
   <div class="hero-content">
     <div class="hero-badge">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
       Built for Shopify
     </div>
     <h1>Automate Your <span class="gradient-text">Flash Sales</span><br>& Discount Collections</h1>
@@ -248,7 +263,7 @@
         <div class="stat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
-        <div class="stat-label">Setup in 2 Minutes</div>
+        <div class="stat-label">Setup in Under 2 Min</div>
       </div>
     </div>
   </div>
@@ -502,7 +517,7 @@
     <div class="footer-section">
       <h3>Support</h3>
       <ul class="footer-links">
-        <li><a href="mailto:support@dailydealsapp.com">Contact Us</a></li>
+        <li><a href="mailto:support@prodify.app">Contact Us</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </div>
